@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\CareerDevelopment;
 
-use App\Models\PromotionTransfer;
+use App\Http\Controllers\Controller;
+use App\Models\CompetencyDevelopment;
 use Illuminate\Http\Request;
 
-class AdminCareerDevelopmentPromotionTransferController extends Controller
+class CompetencyDevelopmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminCareerDevelopmentPromotionTransferController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeCompetencyDevelopment.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminCareerDevelopmentPromotionTransferController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeCompetencyDevelopment.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminCareerDevelopmentPromotionTransferController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PromotionTransfer  $promotionTransfer
+     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
      * @return \Illuminate\Http\Response
      */
-    public function show(PromotionTransfer $promotionTransfer)
+    public function show(CompetencyDevelopment $competencyDevelopment)
     {
         //
     }
@@ -52,22 +53,22 @@ class AdminCareerDevelopmentPromotionTransferController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PromotionTransfer  $promotionTransfer
+     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
      * @return \Illuminate\Http\Response
      */
-    public function edit(PromotionTransfer $promotionTransfer)
+    public function edit(CompetencyDevelopment $competencyDevelopment)
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeCompetencyDevelopment.create-edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PromotionTransfer  $promotionTransfer
+     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PromotionTransfer $promotionTransfer)
+    public function update(Request $request, CompetencyDevelopment $competencyDevelopment)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminCareerDevelopmentPromotionTransferController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PromotionTransfer  $promotionTransfer
+     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PromotionTransfer $promotionTransfer)
+    public function destroy(CompetencyDevelopment $competencyDevelopment)
     {
         //
     }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\CareerDevelopment;
 
-use App\Models\Formation;
+use App\Http\Controllers\Controller;
+use App\Models\PromotionTransfer;
 use Illuminate\Http\Request;
 
-class AdminProcurementFormationController extends Controller
+class PromotionTransferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminProcurementFormationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeePromotionsAndTransfers.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminProcurementFormationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeePromotionsAndTransfers.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminProcurementFormationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\PromotionTransfer  $promotionTransfer
      * @return \Illuminate\Http\Response
      */
-    public function show(Formation $formation)
+    public function show(PromotionTransfer $promotionTransfer)
     {
         //
     }
@@ -52,10 +53,10 @@ class AdminProcurementFormationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\PromotionTransfer  $promotionTransfer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Formation $formation)
+    public function edit(PromotionTransfer $promotionTransfer)
     {
         //
     }
@@ -64,10 +65,10 @@ class AdminProcurementFormationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\PromotionTransfer  $promotionTransfer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Formation $formation)
+    public function update(Request $request, PromotionTransfer $promotionTransfer)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminProcurementFormationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\PromotionTransfer  $promotionTransfer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Formation $formation)
+    public function destroy(PromotionTransfer $promotionTransfer)
     {
         //
     }

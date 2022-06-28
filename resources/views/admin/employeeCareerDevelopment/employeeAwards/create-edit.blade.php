@@ -8,11 +8,11 @@
 <x-layoutContent>
     <x-card.card>
         <x-slot name="header">
-            <x-card.card-title text="Penolakan Pegawai"/>
+            <x-card.card-title text="Penghargaan Pegawai"/>
         </x-slot>
         <x-slot name="body">
             <form id="form"
-            action="{{ request()->routeIs('refusal.create') ? route('refusal.store'): route('refusal.edit', @$admin->id) }}"
+            action="{{ request()->routeIs('award.create') ? route('award.store'): route('award.edit', @$admin->id) }}"
             method="post" enctype="multipart/form-data">
             @csrf
             <x-forms.put-method />

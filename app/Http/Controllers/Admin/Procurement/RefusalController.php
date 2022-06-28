@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Procurement;
 
-use App\Models\Award;
+use App\Http\Controllers\Controller;
+use App\Models\Refusal;
 use Illuminate\Http\Request;
 
-class AdminCareerDevelopmentEmployeeAwardController extends Controller
+class RefusalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeProcurement.employeeRefusal.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeProcurement.employeeRefusal.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Award  $award
+     * @param  \App\Models\Refusal  $refusal
      * @return \Illuminate\Http\Response
      */
-    public function show(Award $award)
+    public function show(Refusal $refusal)
     {
         //
     }
@@ -52,10 +53,10 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Award  $award
+     * @param  \App\Models\Refusal  $refusal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Award $award)
+    public function edit(Refusal $refusal)
     {
         //
     }
@@ -64,10 +65,10 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Award  $award
+     * @param  \App\Models\Refusal  $refusal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Award $award)
+    public function update(Request $request, Refusal $refusal)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminCareerDevelopmentEmployeeAwardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Award  $award
+     * @param  \App\Models\Refusal  $refusal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Award $award)
+    public function destroy(Refusal $refusal)
     {
         //
     }

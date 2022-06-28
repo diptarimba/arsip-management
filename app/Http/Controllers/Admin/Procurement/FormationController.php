@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Procurement;
 
-use App\Models\Refusal;
+use App\Http\Controllers\Controller;
+use App\Models\Formation;
 use Illuminate\Http\Request;
 
-class AdminProcurementRefusalController extends Controller
+class FormationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminProcurementRefusalController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeProcurement.employeeFormation.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminProcurementRefusalController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeProcurement.employeeFormation.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminProcurementRefusalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Refusal  $refusal
+     * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function show(Refusal $refusal)
+    public function show(Formation $formation)
     {
         //
     }
@@ -52,10 +53,10 @@ class AdminProcurementRefusalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Refusal  $refusal
+     * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Refusal $refusal)
+    public function edit(Formation $formation)
     {
         //
     }
@@ -64,10 +65,10 @@ class AdminProcurementRefusalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Refusal  $refusal
+     * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Refusal $refusal)
+    public function update(Request $request, Formation $formation)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminProcurementRefusalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Refusal  $refusal
+     * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Refusal $refusal)
+    public function destroy(Formation $formation)
     {
         //
     }

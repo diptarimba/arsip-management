@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Procurement;
 
-use App\Models\Appointment;
+use App\Http\Controllers\Controller;
+use App\Models\Reception;
 use Illuminate\Http\Request;
 
-class AdminProcurementAppointmentController extends Controller
+class ReceptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminProcurementAppointmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeProcurement.employeeReception.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminProcurementAppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeProcurement.employeeReception.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminProcurementAppointmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  \App\Models\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function show(Appointment $appointment)
+    public function show(Reception $reception)
     {
         //
     }
@@ -52,10 +53,10 @@ class AdminProcurementAppointmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  \App\Models\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function edit(Appointment $appointment)
+    public function edit(Reception $reception)
     {
         //
     }
@@ -64,10 +65,10 @@ class AdminProcurementAppointmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Appointment  $appointment
+     * @param  \App\Models\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Appointment $appointment)
+    public function update(Request $request, Reception $reception)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminProcurementAppointmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Appointment  $appointment
+     * @param  \App\Models\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy(Reception $reception)
     {
         //
     }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\CareerDevelopment;
 
-use App\Models\CompetencyDevelopment;
+use App\Http\Controllers\Controller;
+use App\Models\Award;
 use Illuminate\Http\Request;
 
-class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
+class AwardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeAwards.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeAwards.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
+     * @param  \App\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function show(CompetencyDevelopment $competencyDevelopment)
+    public function show(Award $award)
     {
         //
     }
@@ -52,22 +53,22 @@ class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
+     * @param  \App\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function edit(CompetencyDevelopment $competencyDevelopment)
+    public function edit(Award $award)
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeeAwards.create-edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
+     * @param  \App\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CompetencyDevelopment $competencyDevelopment)
+    public function update(Request $request, Award $award)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminCareerDevelopmentCompetencyDevelopmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CompetencyDevelopment  $competencyDevelopment
+     * @param  \App\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CompetencyDevelopment $competencyDevelopment)
+    public function destroy(Award $award)
     {
         //
     }

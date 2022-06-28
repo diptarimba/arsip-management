@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Procurement;
 
-use App\Models\Reception;
+use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
-class AdminProcurementReceptionController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AdminProcurementReceptionController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.employeeProcurement.employeeAppointment.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class AdminProcurementReceptionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employeeProcurement.employeeAppointment.create-edit');
     }
 
     /**
@@ -41,10 +42,10 @@ class AdminProcurementReceptionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Reception  $reception
+     * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function show(Reception $reception)
+    public function show(Appointment $appointment)
     {
         //
     }
@@ -52,10 +53,10 @@ class AdminProcurementReceptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Reception  $reception
+     * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reception $reception)
+    public function edit(Appointment $appointment)
     {
         //
     }
@@ -64,10 +65,10 @@ class AdminProcurementReceptionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reception  $reception
+     * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reception $reception)
+    public function update(Request $request, Appointment $appointment)
     {
         //
     }
@@ -75,10 +76,10 @@ class AdminProcurementReceptionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Reception  $reception
+     * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reception $reception)
+    public function destroy(Appointment $appointment)
     {
         //
     }

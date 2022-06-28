@@ -8,7 +8,7 @@
 <x-layoutContent>
     <x-card.card>
         <x-slot name="header">
-            <x-card.card-title text="Penolakan Pegawai"/>
+            <x-card.card-title text="Penetapan Pegawai"/>
         </x-slot>
         <x-slot name="body">
             <table class="table table-striped datatables-target-exec">
@@ -30,7 +30,6 @@
 
 @section('footer')
 <script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/js/extensions/datatables.js')}}"></script>
 <script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 <script>
@@ -38,7 +37,7 @@
         var table = $('.datatables-target-exec').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('refusal.index') }}",
+        ajax: "{{ route('appointment.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'user.name', name: 'user.name'},
