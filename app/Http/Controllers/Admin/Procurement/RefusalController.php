@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Procurement;
 use App\Http\Controllers\Controller;
 use App\Models\Refusal;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class RefusalController extends Controller
 {
@@ -13,8 +14,19 @@ class RefusalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax())
+        {
+            $refusal = Refusal::select();
+            return DataTables::of($refusal)
+            ->addIndexColumn()
+            ->addColumn('action', function($query){
+                return $this->getActionColumn($query);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         return view('admin.employeeProcurement.employeeRefusal.index');
     }
 
@@ -36,7 +48,18 @@ class RefusalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'required',
+            'date' => 'required'
+        ]);
+
+        $refusal = Refusal::create(array_merge($request->all(), [
+            'file' => $request->file('file')->storePublicly('file/refusal')
+        ]));
+
+        return redirect()->route('refusal.index')->with('status', 'Success create refusal file');
     }
 
     /**
@@ -58,7 +81,7 @@ class RefusalController extends Controller
      */
     public function edit(Refusal $refusal)
     {
-        //
+        return view('admin.employeeProcurement.employeeRefusal.create-edit', compact('refusal'));
     }
 
     /**
@@ -70,7 +93,18 @@ class RefusalController extends Controller
      */
     public function update(Request $request, Refusal $refusal)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'sometimes',
+            'date' => 'required'
+        ]);
+
+        $refusal->update(array_merge($request->all(), [
+            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/refusal') : $refusal->file
+        ]));
+
+        return redirect()->route('refusal.index')->with('status', 'Success update refusal file');
     }
 
     /**
@@ -81,6 +115,8 @@ class RefusalController extends Controller
      */
     public function destroy(Refusal $refusal)
     {
-        //
+        $refusal->delete();
+
+        return redirect()->route('refusal.index')->with('status', 'Success delete refusal file');
     }
 }

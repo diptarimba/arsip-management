@@ -1,14 +1,20 @@
 @extends('layouts.master')
 
+@section('title', 'Promosi dan Mutasi Pegawai')
+
 @section('header')
 
 @endsection
 
 @section('body')
-<x-layoutContent>
+<x-layoutContent
+    Heading="Promosi dan Mutasi Pegawai"
+    mainTitle="Pengadaan Pegawai"
+    subTitle="Promosi dan Mutasi Pegawai"
+>
     <x-card.card>
         <x-slot name="header">
-            <x-card.card-title text="Promosi dan Mutasi Pegawai"/>
+            <x-card.card-title-create url="{{route('promotion_transfer.create')}}" />
         </x-slot>
         <x-slot name="body">
             <table class="table table-striped datatables-target-exec">

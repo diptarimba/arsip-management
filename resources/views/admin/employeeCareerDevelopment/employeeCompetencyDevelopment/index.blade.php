@@ -1,14 +1,20 @@
 @extends('layouts.master')
 
+@section('title', 'Pengembangan Kompetensi Pegawai')
+
 @section('header')
 
 @endsection
 
 @section('body')
-<x-layoutContent>
+<x-layoutContent
+    Heading="Pengembangan Kompetensi Pegawai"
+    mainTitle="Pengadaan Pegawai"
+    subTitle="Pengembangan Kompetensi Pegawai"
+>
     <x-card.card>
         <x-slot name="header">
-            <x-card.card-title text="Pengembangan Kompetensi Pegawai"/>
+            <x-card.card-title-create url="{{route('competency_development.create')}}" />
         </x-slot>
         <x-slot name="body">
             <table class="table table-striped datatables-target-exec">

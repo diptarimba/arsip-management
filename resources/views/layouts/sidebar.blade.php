@@ -44,7 +44,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <x-sidebar.menu-label text="Menu"/>
-                <x-sidebar.sidebar-single text="Dashboard" icon="bi bi-grid-fill" href="index.html"/>
+                <x-sidebar.sidebar-single text="Dashboard" icon="bi bi-grid-fill" href="/"/>
                 <x-sidebar.sidebar-parent text="Pengadaan Pegawai" icon="bi bi-stack">
                     <x-sidebar.sidebar-child text="Formasi Pegawai" href="{{route('formation.index')}}"/>
                     <x-sidebar.sidebar-child text="Penerimaan Pegawai" href="{{route('reception.index')}}"/>

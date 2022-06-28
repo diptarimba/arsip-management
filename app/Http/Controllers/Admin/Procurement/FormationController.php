@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Procurement;
 use App\Http\Controllers\Controller;
 use App\Models\Formation;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class FormationController extends Controller
 {
@@ -13,8 +14,19 @@ class FormationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax())
+        {
+            $formation = Formation::select();
+            return DataTables::of($formation)
+            ->addIndexColumn()
+            ->addColumn('action', function($query){
+                return $this->getActionColumn($query);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         return view('admin.employeeProcurement.employeeFormation.index');
     }
 
@@ -36,7 +48,18 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'required',
+            'date' => 'required'
+        ]);
+
+        $formation = Formation::create(array_merge($request->all(), [
+            'file' => $request->file('file')->storePublicly('file/formation')
+        ]));
+
+        return redirect()->route('formation.index')->with('status', 'Success create formation file');
     }
 
     /**
@@ -58,7 +81,7 @@ class FormationController extends Controller
      */
     public function edit(Formation $formation)
     {
-        //
+        return view('admin.employeeProcurement.employeeFormation.create-edit', compact('formation'));
     }
 
     /**
@@ -70,7 +93,18 @@ class FormationController extends Controller
      */
     public function update(Request $request, Formation $formation)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'sometimes',
+            'date' => 'required'
+        ]);
+
+        $formation->update(array_merge($request->all(), [
+            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/formation') : $formation->file
+        ]));
+
+        return redirect()->route('formation.index')->with('status', 'Success update formation file');
     }
 
     /**
@@ -81,6 +115,8 @@ class FormationController extends Controller
      */
     public function destroy(Formation $formation)
     {
-        //
+        $formation->delete();
+
+        return redirect()->route('formation.index')->with('status', 'Success delete formation file');
     }
 }

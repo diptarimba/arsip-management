@@ -1,14 +1,20 @@
 @extends('layouts.master')
 
+@section('title', 'Penerimaan Pegawai')
+
 @section('header')
 
 @endsection
 
 @section('body')
-<x-layoutContent>
+<x-layoutContent
+    Heading="Penerimaan Pegawai"
+    mainTitle="Pengadaan Pegawai"
+    subTitle="Penerimaan Pegawai"
+>
     <x-card.card>
         <x-slot name="header">
-            <x-card.card-title text="Penerimaan Pegawai"/>
+            <x-card.card-title-create url="{{route('reception.create')}}" />
         </x-slot>
         <x-slot name="body">
             <table class="table table-striped datatables-target-exec">

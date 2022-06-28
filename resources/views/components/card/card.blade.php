@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        {{$header}}
+        {{$header ?? ''}}
     </div>
     <div class="card-body">
         {{$body}}

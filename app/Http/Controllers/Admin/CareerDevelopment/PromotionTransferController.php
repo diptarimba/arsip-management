@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\CareerDevelopment;
 use App\Http\Controllers\Controller;
 use App\Models\PromotionTransfer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PromotionTransferController extends Controller
 {
@@ -13,8 +14,19 @@ class PromotionTransferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax())
+        {
+            $promotionTransfer = PromotionTransfer::select();
+            return DataTables::of($promotionTransfer)
+            ->addIndexColumn()
+            ->addColumn('action', function($query){
+                return $this->getActionColumn($query);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         return view('admin.employeeCareerDevelopment.employeePromotionsAndTransfers.index');
     }
 
@@ -36,7 +48,18 @@ class PromotionTransferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'required',
+            'date' => 'required'
+        ]);
+
+        $promotionTransfer = PromotionTransfer::create(array_merge($request->all(), [
+            'file' => $request->file('file')->storePublicly('file/promotion_transfer')
+        ]));
+
+        return redirect()->route('promotion_transfer.index')->with('status', 'Success create promotion transfer file');
     }
 
     /**
@@ -58,7 +81,7 @@ class PromotionTransferController extends Controller
      */
     public function edit(PromotionTransfer $promotionTransfer)
     {
-        //
+        return view('admin.employeeCareerDevelopment.employeePromotionsAndTransfers.create-edit', compact('promotionTransfer'));
     }
 
     /**
@@ -70,7 +93,18 @@ class PromotionTransferController extends Controller
      */
     public function update(Request $request, PromotionTransfer $promotionTransfer)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'sometimes',
+            'date' => 'required'
+        ]);
+
+        $promotionTransfer->update(array_merge($request->all(), [
+            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/promotion_transfer') : $promotionTransfer->file
+        ]));
+
+        return redirect()->route('promotion_transfer.index')->with('status', 'Success update promotion transfer file');
     }
 
     /**
@@ -81,6 +115,8 @@ class PromotionTransferController extends Controller
      */
     public function destroy(PromotionTransfer $promotionTransfer)
     {
-        //
+        $promotionTransfer->delete();
+
+        return redirect()->route('promotion_transfer.index')->with('status', 'Success delete promotion transfer file');
     }
 }

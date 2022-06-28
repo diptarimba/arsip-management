@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Procurement;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class AppointmentController extends Controller
 {
@@ -13,8 +14,19 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax())
+        {
+            $appointment = Appointment::select();
+            return DataTables::of($appointment)
+            ->addIndexColumn()
+            ->addColumn('action', function($query){
+                return $this->getActionColumn($query);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         return view('admin.employeeProcurement.employeeAppointment.index');
     }
 
@@ -36,7 +48,18 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'required',
+            'date' => 'required'
+        ]);
+
+        $appointment = Appointment::create(array_merge($request->all(), [
+            'file' => $request->file('file')->storePublicly('file/appointment')
+        ]));
+
+        return redirect()->route('appointment.index')->with('status', 'Success create appointment file');
     }
 
     /**
@@ -58,7 +81,7 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        //
+        return view('admin.employeeProcurement.employeeAppointment.create-edit', compact('appointment'));
     }
 
     /**
@@ -70,7 +93,18 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'code' => 'required',
+            'file' => 'sometimes',
+            'date' => 'required'
+        ]);
+
+        $appointment->update(array_merge($request->all(), [
+            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/appointment') : $appointment->file
+        ]));
+
+        return redirect()->route('appointment.index')->with('status', 'Success update appointment file');
     }
 
     /**
@@ -81,6 +115,8 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+
+        return redirect()->route('appointment.index')->with('status', 'Success delete appointment file');
     }
 }
