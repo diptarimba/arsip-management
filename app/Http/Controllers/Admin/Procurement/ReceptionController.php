@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class ReceptionController extends Controller
 {
@@ -56,7 +57,7 @@ class ReceptionController extends Controller
         ]);
 
         $reception = Reception::create(array_merge($request->all(), [
-            'file' => $request->file('file')->storePublicly('file/reception')
+            'file' => 'storage/' . $request->file('file')->storePublicly('file/reception')
         ]));
 
         return redirect()->route('reception.index')->with('status', 'Success create reception file');
@@ -101,7 +102,7 @@ class ReceptionController extends Controller
         ]);
 
         $reception->update(array_merge($request->all(), [
-            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/reception') : $reception->file
+            'file' => $request->hasFile('file') ? 'storage/' . $request->file('file')->storePublicly('file/reception') : $reception->file
         ]));
 
         return redirect()->route('reception.index')->with('status', 'Success update reception file');
@@ -118,5 +119,19 @@ class ReceptionController extends Controller
         $reception->delete();
 
         return redirect()->route('reception.index')->with('status', 'Success delete reception file');
+    }
+
+    public function getActionColumn($data)
+    {
+        $editBtn = route('reception.edit', $data->id);
+        $deleteBtn = route('reception.destroy', $data->id);
+        $ident = Str::random(15);
+        return
+        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'" />
+        <input type="hidden" name="_method" value="DELETE">
+        </form>';
     }
 }

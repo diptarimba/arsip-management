@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PromotionTransfer;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class PromotionTransferController extends Controller
 {
@@ -56,7 +57,7 @@ class PromotionTransferController extends Controller
         ]);
 
         $promotionTransfer = PromotionTransfer::create(array_merge($request->all(), [
-            'file' => $request->file('file')->storePublicly('file/promotion_transfer')
+            'file' => 'storage/' . $request->file('file')->storePublicly('file/promotion_transfer')
         ]));
 
         return redirect()->route('promotion_transfer.index')->with('status', 'Success create promotion transfer file');
@@ -101,7 +102,7 @@ class PromotionTransferController extends Controller
         ]);
 
         $promotionTransfer->update(array_merge($request->all(), [
-            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/promotion_transfer') : $promotionTransfer->file
+            'file' => $request->hasFile('file') ? 'storage/' . $request->file('file')->storePublicly('file/promotion_transfer') : $promotionTransfer->file
         ]));
 
         return redirect()->route('promotion_transfer.index')->with('status', 'Success update promotion transfer file');
@@ -118,5 +119,19 @@ class PromotionTransferController extends Controller
         $promotionTransfer->delete();
 
         return redirect()->route('promotion_transfer.index')->with('status', 'Success delete promotion transfer file');
+    }
+
+    public function getActionColumn($data)
+    {
+        $editBtn = route('promotion_transfer.edit', $data->id);
+        $deleteBtn = route('promotion_transfer.destroy', $data->id);
+        $ident = Str::random(15);
+        return
+        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'" />
+        <input type="hidden" name="_method" value="DELETE">
+        </form>';
     }
 }

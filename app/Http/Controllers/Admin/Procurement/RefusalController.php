@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Refusal;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class RefusalController extends Controller
 {
@@ -56,7 +57,7 @@ class RefusalController extends Controller
         ]);
 
         $refusal = Refusal::create(array_merge($request->all(), [
-            'file' => $request->file('file')->storePublicly('file/refusal')
+            'file' => 'storage/' . $request->file('file')->storePublicly('file/refusal')
         ]));
 
         return redirect()->route('refusal.index')->with('status', 'Success create refusal file');
@@ -101,7 +102,7 @@ class RefusalController extends Controller
         ]);
 
         $refusal->update(array_merge($request->all(), [
-            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/refusal') : $refusal->file
+            'file' => $request->hasFile('file') ? 'storage/' . $request->file('file')->storePublicly('file/refusal') : $refusal->file
         ]));
 
         return redirect()->route('refusal.index')->with('status', 'Success update refusal file');
@@ -119,4 +120,19 @@ class RefusalController extends Controller
 
         return redirect()->route('refusal.index')->with('status', 'Success delete refusal file');
     }
+
+    public function getActionColumn($data)
+    {
+        $editBtn = route('subscriber.edit', $data->id);
+        $deleteBtn = route('subscriber.destroy', $data->id);
+        $ident = Str::random(15);
+        return
+        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'" />
+        <input type="hidden" name="_method" value="DELETE">
+        </form>';
+    }
+
 }

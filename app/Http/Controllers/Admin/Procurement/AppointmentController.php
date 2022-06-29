@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class AppointmentController extends Controller
 {
@@ -56,7 +57,7 @@ class AppointmentController extends Controller
         ]);
 
         $appointment = Appointment::create(array_merge($request->all(), [
-            'file' => $request->file('file')->storePublicly('file/appointment')
+            'file' => 'storage/' . $request->file('file')->storePublicly('file/appointment')
         ]));
 
         return redirect()->route('appointment.index')->with('status', 'Success create appointment file');
@@ -101,7 +102,7 @@ class AppointmentController extends Controller
         ]);
 
         $appointment->update(array_merge($request->all(), [
-            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/appointment') : $appointment->file
+            'file' => $request->hasFile('file') ? 'storage/' . $request->file('file')->storePublicly('file/appointment') : $appointment->file
         ]));
 
         return redirect()->route('appointment.index')->with('status', 'Success update appointment file');
@@ -118,5 +119,19 @@ class AppointmentController extends Controller
         $appointment->delete();
 
         return redirect()->route('appointment.index')->with('status', 'Success delete appointment file');
+    }
+
+    public function getActionColumn($data)
+    {
+        $editBtn = route('appointment.edit', $data->id);
+        $deleteBtn = route('appointment.destroy', $data->id);
+        $ident = Str::random(15);
+        return
+        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'" />
+        <input type="hidden" name="_method" value="DELETE">
+        </form>';
     }
 }

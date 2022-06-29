@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Award;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class AwardController extends Controller
 {
@@ -57,7 +58,7 @@ class AwardController extends Controller
         ]);
 
         $award = Award::create(array_merge($request->all(), [
-            'file' => $request->file('file')->storePublicly('file/award')
+            'file' => 'storage/' . $request->file('file')->storePublicly('file/award')
         ]));
 
         return redirect()->route('award.index')->with('status', 'Success create award file');
@@ -102,7 +103,7 @@ class AwardController extends Controller
         ]);
 
         $award->update(array_merge($request->all(), [
-            'file' => $request->hasFile('file') ? $request->file('file')->storePublicly('file/award') : $award->file
+            'file' => $request->hasFile('file') ? 'storage/' . $request->file('file')->storePublicly('file/award') : $award->file
         ]));
 
         return redirect()->route('award.index')->with('status', 'Success update award');
@@ -119,5 +120,19 @@ class AwardController extends Controller
         $award->delete();
 
         return redirect()->route('award.index')->with('status', 'Success delete award');
+    }
+
+    public function getActionColumn($data)
+    {
+        $editBtn = route('award.edit', $data->id);
+        $deleteBtn = route('award.destroy', $data->id);
+        $ident = Str::random(15);
+        return
+        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+        <input type="hidden" name="_token" value="'.csrf_token().'" />
+        <input type="hidden" name="_method" value="DELETE">
+        </form>';
     }
 }

@@ -45,10 +45,10 @@
         serverSide: true,
         ajax: "{{ route('award.index') }}",
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'user.name', name: 'user.name'},
-            {data: 'user.email', name: 'user.email'},
-            {data: 'user.phone_number', name: 'user.phone_number'},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, sortable: false, searchable: false},
+            {data: 'name', name: 'name'},
+            {data: 'code', name: 'code'},
+            {data: 'date', name: 'date'},
             {
                 data: 'action',
                 name: 'action',
