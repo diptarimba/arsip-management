@@ -123,8 +123,8 @@ class RefusalController extends Controller
 
     public function getActionColumn($data)
     {
-        $editBtn = route('subscriber.edit', $data->id);
-        $deleteBtn = route('subscriber.destroy', $data->id);
+        $editBtn = route('refusal.edit', $data->id);
+        $deleteBtn = route('refusal.destroy', $data->id);
         $ident = Str::random(15);
         return
         '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
@@ -132,7 +132,7 @@ class RefusalController extends Controller
         <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
         <input type="hidden" name="_token" value="'.csrf_token().'" />
         <input type="hidden" name="_method" value="DELETE">
-        </form>';
+        </form>'. '<a href="/'.$data->file.'" class="btn mx-1 my-1 btn-sm btn-warning">Download File</a>';
     }
 
 }

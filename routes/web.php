@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Procurement\AppointmentController;
 use App\Http\Controllers\Admin\Procurement\FormationController;
 use App\Http\Controllers\Admin\Procurement\ReceptionController;
 use App\Http\Controllers\Admin\Procurement\RefusalController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    view('components.layoutDashboard');
-});
+Route::get('/', [HomeController::class, 'index']);
+
 Route::resource('/carrer_development/award', AwardController::class);
 Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class);
 Route::resource('/career_development/promotion_transfer', PromotionTransferController::class);
