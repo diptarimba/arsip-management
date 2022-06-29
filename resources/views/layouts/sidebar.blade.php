@@ -56,6 +56,8 @@
                     <x-sidebar.sidebar-child text="Promosi dan Mutasi Pegawai" href="{{route('promotion_transfer.index')}}"/>
                     <x-sidebar.sidebar-child text="Penghargaan/Tanda Jasa Pegawai" href="{{route('award.index')}}"/>
                 </x-sidebar.sidebar-parent>
+                <x-sidebar.sidebar-single text="Profil Saya" icon="bi bi-person-circle" href="{{route('me')}}"/>
+                <x-sidebar.sidebar-single text="Logout" icon="bi bi-arrow-bar-right" href="{{route('logout')}}"/>
             </ul>
         </div>
     </div>

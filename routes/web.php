@@ -24,18 +24,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-Route::get('/', [HomeController::class, 'index']);
 
-Route::resource('/carrer_development/award', AwardController::class);
-Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class);
-Route::resource('/career_development/promotion_transfer', PromotionTransferController::class);
+Route::group(['middleware' => ['auth', 'web']], function(){
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/me', [LoginController::class, 'me'])->name('me');
+    Route::post('/me', [LoginController::class, 'updateMe'])->name('me.update');
 
-Route::resource('/procurement/appointment', AppointmentController::class);
-Route::resource('/procurement/formation', FormationController::class);
-Route::resource('/procurement/reception', ReceptionController::class);
-Route::resource('/procurement/refusal', RefusalController::class);
+    Route::resource('/carrer_development/award', AwardController::class);
+    Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class);
+    Route::resource('/career_development/promotion_transfer', PromotionTransferController::class);
+
+    Route::resource('/procurement/appointment', AppointmentController::class);
+    Route::resource('/procurement/formation', FormationController::class);
+    Route::resource('/procurement/reception', ReceptionController::class);
+    Route::resource('/procurement/refusal', RefusalController::class);
+});

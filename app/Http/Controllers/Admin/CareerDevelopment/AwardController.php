@@ -127,12 +127,16 @@ class AwardController extends Controller
         $editBtn = route('award.edit', $data->id);
         $deleteBtn = route('award.destroy', $data->id);
         $ident = Str::random(15);
-        return
-        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+
+        $button = '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
         . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
         <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
         <input type="hidden" name="_token" value="'.csrf_token().'" />
         <input type="hidden" name="_method" value="DELETE">
         </form>'. '<a href="/'.$data->file.'" class="btn mx-1 my-1 btn-sm btn-warning">Download File</a>';
+
+        if($this->userRole == 'admin'){
+            return $button;
+        }
     }
 }
