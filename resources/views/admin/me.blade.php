@@ -10,9 +10,8 @@
     <x-layoutContent Heading="Profil Saya" mainTitle="Profil" subTitle="Profil Saya" half="1">
         <x-card.card>
             <x-slot name="body">
-                <form id="form"
-                    action="{{ route('me.update', @$user->id) }}"
-                    method="post" enctype="multipart/form-data">
+                <form id="form" action="{{ route('me.update', @$user->id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <x-forms.input required="" label="Username" name="username" :value="@$user->username" />
                     <x-forms.input required="" label="Nama" name="name" :value="@$user->name" />
@@ -23,6 +22,22 @@
                 <x-action.cancel />
             </x-slot>
         </x-card.card>
+        @if ($role == 'admin')
+        <x-card.card>
+            <x-slot name="header">
+                Pembuatan Admin Baru
+            </x-slot>
+            <x-slot name="body">
+                <form id="forms" action="{{ route('admin.store') }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <x-forms.input required="" label="Email" name="email" :value="@$user->emai" />
+                </form>
+                <button form="forms" class="btn btn-outline-primary btn-pill">Tambah</button>
+                <x-action.cancel />
+            </x-slot>
+        </x-card.card>
+        @endif
     </x-layoutContent>
 @endsection
 

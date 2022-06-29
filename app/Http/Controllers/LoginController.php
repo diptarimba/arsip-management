@@ -52,17 +52,18 @@ class LoginController extends Controller
     public function me()
     {
         $user = Auth::user();
-        return view('admin.me', compact('user'));
+        $role = $user->getRoleNames()->first();
+        return view('admin.me', compact('user', 'role'));
     }
 
     public function updateMe(Request $request)
     {
         $this->validate($request, [
             'username' => [
-                'sometimes',
+                'required',
                 Rule::unique('users')->ignore(Auth::user()->id, 'id')],
             'email' => [
-                'sometimes',
+                'required',
                 'email',
                 Rule::unique('users')->ignore(Auth::user()->id, 'id')],
             'name' => 'required',

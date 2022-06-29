@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth', 'web']], function(){
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/me', [LoginController::class, 'me'])->name('me');
     Route::post('/me', [LoginController::class, 'updateMe'])->name('me.update');
+    Route::post('/admin', [RegisterController::class, 'addNewAdmin'])->name('admin.store');
 
     Route::resource('/carrer_development/award', AwardController::class);
     Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class);

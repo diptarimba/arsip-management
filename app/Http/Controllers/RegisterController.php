@@ -50,5 +50,7 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('admin');
+
+        return redirect()->route('me')->with('status', 'Berhasil membuat admin baru!');
     }
 }
