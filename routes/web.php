@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Procurement\FormationController;
 use App\Http\Controllers\Admin\Procurement\ReceptionController;
 use App\Http\Controllers\Admin\Procurement\RefusalController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::resource('/carrer_development/award', AwardController::class);
