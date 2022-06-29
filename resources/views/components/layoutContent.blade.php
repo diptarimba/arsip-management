@@ -20,6 +20,7 @@
             @if ($half == 1)
                 <div class="col-12 col-md-6">
             @endif
+            @include('components.flash')
             {{$slot}}
             @if ($half == 1)
                 </div>
