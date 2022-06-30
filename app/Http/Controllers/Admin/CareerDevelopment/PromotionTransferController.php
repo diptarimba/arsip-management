@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\CareerDevelopment;
 
 use App\Http\Controllers\Controller;
 use App\Models\PromotionTransfer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -25,7 +27,10 @@ class PromotionTransferController extends Controller
             ->addColumn('action', function($query){
                 return $this->getActionColumn($query);
             })
-            ->rawColumns(['action'])
+            ->addColumn('date', function($query){
+                return Carbon::parse($query->date)->format('d F Y');
+            })
+            ->rawColumns(['action', 'date'])
             ->make(true);
         }
         return view('admin.employeeCareerDevelopment.employeePromotionsAndTransfers.index');
@@ -126,12 +131,20 @@ class PromotionTransferController extends Controller
         $editBtn = route('promotion_transfer.edit', $data->id);
         $deleteBtn = route('promotion_transfer.destroy', $data->id);
         $ident = Str::random(15);
-        return
-        '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
-        . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
-        <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
-        <input type="hidden" name="_token" value="'.csrf_token().'" />
-        <input type="hidden" name="_method" value="DELETE">
-        </form>'. '<a href="/'.$data->file.'" class="btn mx-1 my-1 btn-sm btn-warning">Download File</a>';
+        $user = Auth::user();
+        $role = $user->getRoleNames()->first();
+        $dataReturn = '';
+        if($role == 'admin')
+        {
+            $dataReturn .= '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+            . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+            <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+            <input type="hidden" name="_token" value="'.csrf_token().'" />
+            <input type="hidden" name="_method" value="DELETE">
+            </form>';
+        }
+        $dataReturn .= '<a href="'.$data->file.'" class="btn mx-1 my-1 btn-sm btn-warning">Download File</a>';
+
+        return $dataReturn;
     }
 }
