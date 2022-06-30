@@ -45,3 +45,16 @@ Route::group(['middleware' => ['auth', 'web']], function(){
     Route::resource('/procurement/reception', ReceptionController::class);
     Route::resource('/procurement/refusal', RefusalController::class);
 });
+
+Route::group(['middleware' => ['guest']], function(){
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+
+    Route::resource('/carrer_development/award', AwardController::class)->only('index');
+    Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class)->only('index');
+    Route::resource('/career_development/promotion_transfer', PromotionTransferController::class)->only('index');
+
+    Route::resource('/procurement/appointment', AppointmentController::class)->only('index');
+    Route::resource('/procurement/formation', FormationController::class)->only('index');
+    Route::resource('/procurement/reception', ReceptionController::class)->only('index');
+    Route::resource('/procurement/refusal', RefusalController::class)->only('index');
+});

@@ -15,7 +15,7 @@
                     @csrf
                     <x-forms.input required="" label="Username" name="username" :value="@$user->username" />
                     <x-forms.input required="" label="Nama" name="name" :value="@$user->name" />
-                    <x-forms.input required="" label="Email" name="email" :value="@$user->email" />
+                    <x-forms.input required="" type="email" label="Email" name="email" :value="@$user->email" />
                     <x-forms.text password required="" label="Password" name="password" :value="@$user->s" />
                 </form>
                 <button form="form" class="btn btn-outline-primary btn-pill">Update</button>

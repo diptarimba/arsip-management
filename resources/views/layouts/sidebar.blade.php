@@ -56,8 +56,13 @@
                     <x-sidebar.sidebar-child text="Promosi dan Mutasi Pegawai" href="{{route('promotion_transfer.index')}}"/>
                     <x-sidebar.sidebar-child text="Penghargaan/Tanda Jasa Pegawai" href="{{route('award.index')}}"/>
                 </x-sidebar.sidebar-parent>
+                @if (Auth::check())
                 <x-sidebar.sidebar-single text="Profil Saya" icon="bi bi-person-circle" href="{{route('me')}}"/>
                 <x-sidebar.sidebar-single text="Logout" icon="bi bi-arrow-bar-right" href="{{route('logout')}}"/>
+                @else
+                <x-sidebar.sidebar-single text="Register" icon="bi bi-person-plus-fill" href="{{route('register.index')}}"/>
+                <x-sidebar.sidebar-single text="Login" icon="bi bi-arrow-right-circle" href="{{route('login.index')}}"/>
+                @endif
             </ul>
         </div>
     </div>

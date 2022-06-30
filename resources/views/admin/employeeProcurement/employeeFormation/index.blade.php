@@ -14,7 +14,9 @@
 >
     <x-card.card>
         <x-slot name="header">
+            @if(Auth::check())
             <x-card.card-title-create url="{{route('formation.create')}}" />
+            @endif
         </x-slot>
         <x-slot name="body">
             <table class="table table-striped datatables-target-exec">

@@ -12,6 +12,10 @@ use Illuminate\Support\Str;
 
 class PromotionTransferController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('web')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -132,16 +136,18 @@ class PromotionTransferController extends Controller
         $deleteBtn = route('promotion_transfer.destroy', $data->id);
         $ident = Str::random(15);
         $user = Auth::user();
-        $role = $user->getRoleNames()->first();
         $dataReturn = '';
-        if($role == 'admin')
+        if(Auth::check())
         {
-            $dataReturn .= '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
-            . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
-            <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
-            <input type="hidden" name="_token" value="'.csrf_token().'" />
-            <input type="hidden" name="_method" value="DELETE">
-            </form>';
+            $role = $user->getRoleNames()->first();
+            if($role == 'admin'){
+                $dataReturn .= '<a href="'.$editBtn.'" class="btn mx-1 my-1 btn-sm btn-success">Edit</a>'
+                . '<input form="form'.$ident .'" type="submit" value="Delete" class="mx-1 my-1 btn btn-sm btn-danger">
+                <form id="form'.$ident .'" action="'.$deleteBtn.'" method="post">
+                <input type="hidden" name="_token" value="'.csrf_token().'" />
+                <input type="hidden" name="_method" value="DELETE">
+                </form>';
+            }
         }
         $dataReturn .= '<a href="'.$data->file.'" class="btn mx-1 my-1 btn-sm btn-warning">Download File</a>';
 
