@@ -15,24 +15,60 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $superadminName = [
+            1 => 'Anya Forger',
+            2 => 'Loid Forger',
+            3 => 'Yor Forger',
+            4 => 'Twilight',
+            5 => 'Bonman'
+        ];
+
+        $adminName = [
+           1 => 'Luffy',
+           2 => 'Roronoa Zoro',
+           3 => 'Nami',
+           4 => 'Sanji',
+           5 => 'Brook'
+        ];
+
+        $userName = [
+            1 => 'Aokiji',
+            2 => 'Akainu',
+            3 => 'Kizaru',
+            4 => 'Sengoku',
+            5 => 'Issho'
+        ];
         for($x = 1; $x < 6; $x++){
             $admin = User::create([
-                'name' => 'I am Admin',
+                'name' => $superadminName[$x],
+                'username' => 'superadmin'.$x,
+                'email' => 'user_'.$x.'@superadmin.net',
+                'password' => bcrypt('12345678')
+            ]);
+
+            $admin->assignRole('superadmin');
+        }
+
+        for($x = 1; $x < 6; $x++){
+            $admin = User::create([
+                'name' => $adminName[$x],
                 'username' => 'admin'.$x,
-                'email' => 'admin'.$x.'@example.net',
+                'email' => 'user_'.$x.'@admin.net',
                 'password' => bcrypt('12345678')
             ]);
 
             $admin->assignRole('admin');
         }
 
-        $user = User::create([
-            'name' => 'I am User',
-            'username' => 'iamuser',
-            'email' => 'user@example.net',
-            'password' => bcrypt('12345678')
-        ]);
+        for($x = 1; $x < 6; $x++){
+            $user = User::create([
+                'name' => $userName[$x],
+                'username' => 'iamuser',
+                'email' => 'user_'.$x.'@user.net',
+                'password' => bcrypt('12345678')
+            ]);
 
-        $user->assignRole('user');
+            $user->assignRole('user');
+        }
     }
 }

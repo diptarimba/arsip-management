@@ -21,15 +21,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|exists:users,email',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        $auth = Auth::guard('web')
-                    ->attempt([
-                        'email' => $request->email,
-                        'password' => $request->password
-                    ], $request->filled('remember'));
+        $username = $request->username;
+        $password = $request->password;
+
+        if(filter_var($username, FILTER_VALIDATE_EMAIL)){
+            $auth = Auth::guard('web')->attempt(['email' => $username, 'password' => $password], $request->filled('remember'));
+        }else{
+            $auth = Auth::guard('web')->attempt(['username' => $username, 'password' => $password], $request->filled('remember'));
+        }
 
         if($auth){
             return redirect()

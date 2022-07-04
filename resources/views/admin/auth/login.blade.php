@@ -19,7 +19,7 @@
             <form action="{{route('login.post')}}" method="post">
                 @csrf
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" name="email" class="form-control form-control-xl" placeholder="Email">
+                    <input type="text" name="username" class="form-control form-control-xl" placeholder="Username or Email">
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>

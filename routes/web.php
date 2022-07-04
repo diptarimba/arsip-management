@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Procurement\AppointmentController;
 use App\Http\Controllers\Admin\Procurement\FormationController;
 use App\Http\Controllers\Admin\Procurement\ReceptionController;
 use App\Http\Controllers\Admin\Procurement\RefusalController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['auth', 'web']], function(){
     Route::get('/me', [LoginController::class, 'me'])->name('me');
     Route::post('/me', [LoginController::class, 'updateMe'])->name('me.update');
     Route::post('/admin', [RegisterController::class, 'addNewAdmin'])->name('admin.store');
+
+    Route::resource('/user', UserController::class);
 
     Route::resource('/carrer_development/award', AwardController::class);
     Route::resource('/career_development/competency_development', CompetencyDevelopmentController::class);
