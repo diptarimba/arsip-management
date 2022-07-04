@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
         for($x = 1; $x < 6; $x++){
             $user = User::create([
                 'name' => $userName[$x],
-                'username' => 'iamuser',
+                'username' => 'iamuser'.$x,
                 'email' => 'user_'.$x.'@user.net',
                 'password' => bcrypt('12345678')
             ]);
