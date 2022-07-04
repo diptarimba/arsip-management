@@ -49,7 +49,10 @@
                     <div class="sidebar-link text-wrap"><i class="bi bi-card-heading"></i><span>Name : {{Auth::user()->name}}</span></div>
                     <div class="sidebar-link text-wrap"><i class="bi bi-sliders"></i><span>Role : {{ ucwords(Auth::user()->roles->first()->name)}}</span></div>
                 </li>
+                @else
+                <x-sidebar.menu-label text="Profile"/>
                 <li class="sidebar-item  ">
+                    <div class="sidebar-link text-wrap"><i class="bi bi-sliders"></i><span>Role : Guest</span></div>
                 </li>
                 @endif
                 <x-sidebar.menu-label text="Menu"/>
